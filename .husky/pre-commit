@@ -1,0 +1,7 @@
+#!/usr/bin/env sh
+. "$(dirname -- "$0")/_/husky.sh"
+
+# npm test
+# isort --profile black openai_billing
+black openai_billing
+ruff . --fix
