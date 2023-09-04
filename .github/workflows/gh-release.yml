@@ -60,12 +60,13 @@ jobs:
         with:
           name: openai-billing
           path: openai-billing.dist
-
       # testrun
       - name: Test run openai-billing.exe
         run: |
           dir openai-billing.dist
           openai-billing.dist\openai-billing.exe --help
+          set LOGURU_LEVEL=TRACE
+          openai-billing.dist\openai-billing.exe u1@gmail.com pw1
       # - name: Zip the Build
         # run: zip -r ${{ secrets.ReleaseZipName }} ./AppName/bin/Release/netcoreapp3.1/
 
