@@ -19,4 +19,29 @@ python -m openai_billing
 # or
 openai-billing
 
+# help
+python -m openai_billing --help
+
+# check two pairs
+python -m openai_billing u@gmai.com pw1 u2@gmai.com pw2
+
+# or special characters (&, * etc) in passwords
+python -m openai_billing "u@gmai.com pw*1 u2@gmai.com pw2&"
+
+# check pairs in clipboard
+python -m openai_billing
+
+# check pairs in a file
+python -m openai_billing --filename email-pw-pairs.txt
+
+# use a proxy
+python -m openai_billing --proxy soscks5://127.0.0.1:1080 u@gmai.com pw1 u2@gmai.com pw2
+
+# turn on browser: to see the whole thing in action
+python -m openai_billing u@gmai.com pw1 --headful
+
+# turn on debug
+set LOGURU_LEVEL=TRACE
+python -m openai_billing u@gmai.com pw1 --headful
+
 ```
