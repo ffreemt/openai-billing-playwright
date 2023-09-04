@@ -140,7 +140,7 @@ def main(
         rich.print("No email/password pairs found")
         raise typer.Exit()
 
-    logger.trace(f"to be checked: {pairs}")
+    # logger.trace(f"to be checked: {pairs}")
     logger.debug(f"to be checked: {[elm[0] for elm in  pairs]}")
 
     # prepare a browser

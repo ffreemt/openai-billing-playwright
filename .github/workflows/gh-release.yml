@@ -1,0 +1,92 @@
+# yamllint disable rule:line-length rule:comments-indentation
+name: Nuitka Release  # yamllint disable-line rule:document-start
+
+on:  # yamllint disable-line rule:truthy
+  push:
+    # tags:
+      # - "test*"  # for testing
+      # - "v*"
+jobs:
+  build:
+    strategy:
+      fail-fast: false
+      matrix:
+        python-version: [3.8]
+        poetry-version: [1.5.1]
+        # os: [ubuntu-20.04, macos-latest, windows-latest]
+        os: [windows-latest]
+    runs-on: ${{ matrix.os }}
+    # runs-on: ubuntu-latest
+
+    steps:
+      - name: "Determine tag"
+        run: |
+          echo "RELEASE_TAG=${GITHUB_REF#refs/tags/}"
+          echo "RELEASE_TAG=${GITHUB_REF#refs/tags/} >> $GITHUB_ENV"
+          # echo ${{ env.RELEASE_TAG }}
+      - name: "Use RELEASE_TAG"
+        run: |
+          echo "The release tag is $RELEASE_TAG"
+      - uses: actions/checkout@v3
+      - uses: actions/setup-python@v4
+        with:
+          python-version: ${{ matrix.python-version }}
+          cache: "pip"
+      - uses: abatilo/actions-poetry@v2.0.0
+        with:
+          poetry-version: ${{ matrix.poetry-version }}
+
+      # not necessary if using Nuitka/Nuitka-Action@main
+      - name: Install dependencies
+        run: poetry install
+      - name: nuitka build
+        run: |
+          # poetry run python -m nuitka --onefile --assume-yes-for-downloads --nofollow-imports --follow-import-to=qwen7b_tr qwen7b-tr.py
+          poetry run python -m nuitka --standalone --assume-yes-for-downloads --follow-import-to=openai_billing `
+          openai-billing.py
+      # https://github.com/marketplace/actions/build-executables-or-extension-modules-from-python-projects#usage-details
+      # - uses: Nuitka/Nuitka-Action@main
+        # with:
+          # nuitka-version: main
+          # script-name: qwen7b-tr.py
+          # onefile: true
+          # include-package: gradio-client
+          # include-module:: gradio_client.Client
+
+      # Uploads artifact
+      - name: Upload Artifact
+        run: "echo \" **** upload artifact **** \""
+      - uses: actions/upload-artifact@v3
+        with:
+          name: openai-billing
+          path: openai-billing.dist
+
+      # testrun
+      - name: Test run openai-billing.exe
+        run: |
+          dir openai-billing.dist
+          openai-billing.dist\openai-billing.exe --help
+      # - name: Zip the Build
+        # run: zip -r ${{ secrets.ReleaseZipName }} ./AppName/bin/Release/netcoreapp3.1/
+
+      # - name: Create Release
+        # id: create_release
+        # uses: actions/create-release@v1
+        # env:
+          # GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        # with:
+          # tag_name: ${{ github.ref }}
+          # release_name: Release ${{ github.ref }}
+          # body: TODO New Release.
+          # draft: false
+          # prerelease: false
+
+      # - name: Upload Release Asset
+        # uses: actions/upload-release-asset@v1
+        # env:
+          # GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        # with:
+          # upload_url: ${{ steps.create_release.outputs.upload_url }}
+          # asset_path: ./${{ secrets.ReleaseZipName }}.zip
+          # asset_name: ${{ secrets.ReleaseZipName }}.zip
+          # asset_content_type: application/zip
