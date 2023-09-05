@@ -87,7 +87,7 @@ jobs:
           openai-billing.dist/openai-billing.exe u1@gmail.com pw1
 
       - name: Zip the Build
-        run: tar acf openai-billing-${{  github.ref_name }}.zip .\openai-billing.dist
+        run: tar acf openai-billing-${{  github.ref_name }}.zip ./openai-billing.dist
 
       - name: Publish Release
         run: |
