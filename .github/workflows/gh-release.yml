@@ -17,7 +17,11 @@ jobs:
         os: [windows-latest]
     runs-on: ${{ matrix.os }}
     # runs-on: ubuntu-latest
-
+    defaults:
+      run:
+        # shell: pwsh
+        # shell: cmd
+        shell: bash
     steps:
       - name: "Determine tag"
         run: |
@@ -42,9 +46,10 @@ jobs:
       - name: nuitka build
         run: |
           # poetry run python -m nuitka --onefile --assume-yes-for-downloads --nofollow-imports --follow-import-to=qwen7b_tr qwen7b-tr.py
-          poetry run python -m nuitka --standalone --assume-yes-for-downloads --follow-import-to=openai_billing `
-          --include-package=subprocess `
-          --include-package=playwright `
+          set PLAYWRIGHT_BROWSERS_PATH=0 python -m playwright install chromium
+          poetry run python -m nuitka --standalone --assume-yes-for-downloads --follow-import-to=openai_billing \
+          --include-package=subprocess \
+          --include-package=playwright \
           openai-billing.py
       # https://github.com/marketplace/actions/build-executables-or-extension-modules-from-python-projects#usage-details
       # - uses: Nuitka/Nuitka-Action@main
