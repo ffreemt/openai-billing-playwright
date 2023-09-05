@@ -94,7 +94,7 @@ jobs:
           # gh release upload --clobber ${{ steps.version.outputs.TAG_NAME }} dist/*.tar.gz dist/*.whl
           # gh release upload openai-billing-${{  github.ref_name }}.zip
 
-          gh release create v${{  github.ref_name }} --generate-notes openai-billing-${{  github.ref_name }}.zip
+          gh release create ${{  github.ref_name }} --generate-notes openai-billing-${{  github.ref_name }}.zip
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
 
