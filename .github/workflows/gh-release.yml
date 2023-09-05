@@ -53,7 +53,8 @@ jobs:
       - name: nuitka build
         run: |
           # poetry run python -m nuitka --onefile --assume-yes-for-downloads --nofollow-imports --follow-import-to=qwen7b_tr qwen7b-tr.py
-          PLAYWRIGHT_BROWSERS_PATH=0 python -m playwright install chromium
+          # ---------
+          PLAYWRIGHT_BROWSERS_PATH=0 poetry run python -m playwright install chromium
           poetry run python -m nuitka --standalone --assume-yes-for-downloads --follow-import-to=openai_billing \
           --include-package=subprocess \
           --include-package=playwright \
