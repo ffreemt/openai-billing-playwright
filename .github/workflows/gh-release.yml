@@ -43,6 +43,13 @@ jobs:
       # not necessary if using Nuitka/Nuitka-Action@main
       - name: Install dependencies
         run: poetry install
+      - name: test run python openai-billing.py
+        run: |
+          set LOGURU_LEVEL=TRACE
+          set PLAYWRIGHT_BROWSERS_PATH=0
+          poetry run python -m playwright install chromium
+          poetry run python openai-billing.py u@gmail.com pw
+
       - name: nuitka build
         run: |
           # poetry run python -m nuitka --onefile --assume-yes-for-downloads --nofollow-imports --follow-import-to=qwen7b_tr qwen7b-tr.py
@@ -71,9 +78,9 @@ jobs:
       - name: Test run openai-billing.exe
         run: |
           dir openai-billing.dist
-          openai-billing.dist\openai-billing.exe --help
+          openai-billing.dist/openai-billing.exe --help
           set LOGURU_LEVEL=TRACE
-          openai-billing.dist\openai-billing.exe u1@gmail.com pw1
+          openai-billing.dist/openai-billing.exe u1@gmail.com pw1
       # - name: Zip the Build
         # run: zip -r ${{ secrets.ReleaseZipName }} ./AppName/bin/Release/netcoreapp3.1/
 
