@@ -50,7 +50,7 @@ def main(
                 "email-password pairs delimetered by space or ',', e.g. "
                 "u1@gmail.com pw1 other stuff u2@gmail.com pw2 or u1@gmail.com, pw1 other stuff "
                 " u2@gmail.com pw2 etc. Since passwords "
-                "may contain special characters that may be intepreted by the shell, it's best to "
+                "may contain special characters that may be interpreted by the shell, it's best to "
                 """enclode the input with ", e.g. "u1@gmail.com pw1 other stuff u2@gmail.com pw2*&a", """
             ),
             show_default=False,
