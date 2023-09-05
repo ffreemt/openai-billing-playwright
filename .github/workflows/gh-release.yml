@@ -46,7 +46,7 @@ jobs:
       - name: test run python openai-billing.py
         run: |
           set LOGURU_LEVEL=TRACE
-          set PLAYWRIGHT_BROWSERS_PATH=0
+          PLAYWRIGHT_BROWSERS_PATH=0 \
           poetry run python -m playwright install chromium
           poetry run python openai-billing.py u@gmail.com pw
 
