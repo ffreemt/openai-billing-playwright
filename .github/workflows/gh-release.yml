@@ -60,6 +60,8 @@ jobs:
           --include-package=playwright \
           --include-package=typer \
           openai-billing.py
+          cp -r .venv/Lib/site-packages/playwright openai-billing.dist
+          ls
       # https://github.com/marketplace/actions/build-executables-or-extension-modules-from-python-projects#usage-details
       # - uses: Nuitka/Nuitka-Action@main
         # with:
