@@ -58,6 +58,7 @@ jobs:
           poetry run python -m nuitka --standalone --assume-yes-for-downloads --follow-import-to=openai_billing \
           --include-package=subprocess \
           --include-package=playwright \
+          --include-package=typer \
           openai-billing.py
       # https://github.com/marketplace/actions/build-executables-or-extension-modules-from-python-projects#usage-details
       # - uses: Nuitka/Nuitka-Action@main
