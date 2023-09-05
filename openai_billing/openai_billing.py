@@ -106,7 +106,7 @@ def login_page(
         raise
 
     # wrong email or password
-    if "wrong email or password" in _:
+    if "wrong email or password" in _.lower():
         _ = page.locator("span").get_by_text("wrong email or password").inner_text()
         rich.print(f"[bold red]\tUnable to login, [yellow]reasone: {_}")
         page.close()
@@ -130,8 +130,8 @@ def login_page(
         logger.error(exc)
         raise
 
-    logger.trace(_)
-    logger.trace("not avail" in _.lower())
+    # logger.trace(_)
+    # logger.trace("not avail" in _.lower())
 
     # page.wait_for_selector(".usage-grants")
     page.wait_for_selector(".month-tokens")

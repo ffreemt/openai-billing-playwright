@@ -1,6 +1,6 @@
 [tool.poetry]
 name = "openai-billing"
-version = "0.1.0a1"
+version = "0.1.0a2"
 description = "Fetch openai billing info from command line"
 authors = ["ffreemt"]
 license = "MIT"

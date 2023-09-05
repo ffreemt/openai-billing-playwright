@@ -3,9 +3,9 @@ name: Nuitka Release  # yamllint disable-line rule:document-start
 
 on:  # yamllint disable-line rule:truthy
   push:
-    # tags:
-      # - "test*"  # for testing
-      # - "v*"
+    tags:
+      - "test*"  # for testing
+      - "v*"
 jobs:
   build:
     strategy:
@@ -85,6 +85,19 @@ jobs:
           openai-billing.dist/openai-billing.exe --help
           set LOGURU_LEVEL=TRACE
           openai-billing.dist/openai-billing.exe u1@gmail.com pw1
+
+      - name: Zip the Build
+        run: tar acf openai-billing-${{  github.ref_name }}.zip .\openai-billing.dist
+
+      - name: Publish Release
+        run: |
+          # gh release upload --clobber ${{ steps.version.outputs.TAG_NAME }} dist/*.tar.gz dist/*.whl
+          # gh release upload openai-billing-${{  github.ref_name }}.zip
+
+          gh release create v${{  github.ref_name }} --generate-notes openai-billing-${{  github.ref_name }}.zip
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+
       # - name: Zip the Build
         # run: zip -r ${{ secrets.ReleaseZipName }} ./AppName/bin/Release/netcoreapp3.1/
 
