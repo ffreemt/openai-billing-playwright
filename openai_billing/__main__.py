@@ -152,6 +152,7 @@ def main(
         logger.error(exc)
         raise SystemExit(1) from exc
     # """
+
     with sync_playwright() as playwright:
         logger.trace("get a browser")
         try:

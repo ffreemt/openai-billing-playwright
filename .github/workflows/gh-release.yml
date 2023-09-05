@@ -1,4 +1,4 @@
-# yamllint disable rule:line-length rule:comments-indentation
+# yamllint disable rule:line-length rule:comments-indentation rule:new-lines
 name: Nuitka Release  # yamllint disable-line rule:document-start
 
 on:  # yamllint disable-line rule:truthy
@@ -44,6 +44,7 @@ jobs:
           # poetry run python -m nuitka --onefile --assume-yes-for-downloads --nofollow-imports --follow-import-to=qwen7b_tr qwen7b-tr.py
           poetry run python -m nuitka --standalone --assume-yes-for-downloads --follow-import-to=openai_billing `
           --include-package=subprocess `
+          --include-package=playwright `
           openai-billing.py
       # https://github.com/marketplace/actions/build-executables-or-extension-modules-from-python-projects#usage-details
       # - uses: Nuitka/Nuitka-Action@main

@@ -1,6 +1,6 @@
-name: pytest
+name: pytest  # yamllint disable-line rule:document-start rule:new-lines
 
-on:
+on:  # yamllint disable-line rule:truthy
   push:
 
 jobs:
