@@ -4,7 +4,39 @@
 Fetch openai billing info from command line
 
 ## Install it
+Download [the latest release](https://github.com/ffreemt/openai-billing-playwright/releases) and unzip.
 
+## Use it
+Run `openai-billing.exe` from command line.
+```bash
+openai-billing.exe --help
+
+openai-billing.exe u@gmai.com pw1 u2@gmai.com pw2
+
+# check two pairs
+openai-billing.exe u@gmai.com pw1 u2@gmai.com pw2
+
+# or when special characters (&, * etc) are in passwords
+openai-billing.exe "u@gmai.com pw*1 u2@gmai.com pw2&"
+
+# check pairs in clipboard
+openai-billing.exe openai_billing
+
+# check pairs in a file
+openai-billing.exe --filename email-pw-pairs.txt
+
+# use a proxy
+openai-billing.exe --proxy soscks5://127.0.0.1:1080 u@gmai.com pw1 u2@gmai.com pw2
+
+# turn on browser: to see the whole thing in action
+openai-billing.exe u@gmai.com pw1 --headful
+
+# turn on debug
+set LOGURU_LEVEL=TRACE
+openai-billing.exe u@gmai.com pw1 --headful
+```
+
+## Use it with python
 ```shell
 pip install openai-billing
 # pip install git+https://github.com/ffreemt/openai-billing-playwright
@@ -12,7 +44,6 @@ pip install openai-billing
 # git clone https://github.com/ffreemt/openai-billing-playwright && cd openai-billing-playwright
 ```
 
-## Use it
 ```bash
 python -m openai_billing
 
