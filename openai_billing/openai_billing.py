@@ -86,6 +86,18 @@ def login_page(
         # raise SystemExit(1)
         raise Exception("services are not available in your country")
 
+    logger.trace(f"html: {_}, 'oops in html': {'oops' in _.lower()} ")
+
+    # oops: account deleted etc.
+    if "oops" in _.lower():
+        _ = page.locator("html").inner_text()
+        rich.print(
+            f"[bold red] Oops! [green] https://platform.openai.com/account/usage. [yellow]Reason: {_}"
+        )
+        # page.close()
+        # raise SystemExit(1)
+        raise Exception("services are not available in your country")
+
     page.wait_for_selector("#password")
     _ = (
         "Unable to locate the password field, "
@@ -104,6 +116,16 @@ def login_page(
     except Exception as exc:
         logger.error(exc)
         raise
+
+    # oops: account deleted etc.
+    if "oops" in _.lower():
+        _ = page.locator("html").inner_text()
+        rich.print(
+            f"[bold red] Oops! [green] https://platform.openai.com/account/usage. [yellow]Reason: {_}"
+        )
+        # page.close()
+        # raise SystemExit(1)
+        raise Exception("account deleted or deactivated")
 
     # wrong email or password
     if "wrong email or password" in _.lower():

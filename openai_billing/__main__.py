@@ -162,7 +162,7 @@ def main(
             raise SystemExit(1) from exc
 
         logger.trace("login to openai and fetch info")
-        rich.print("login to openai and fetch info")
+        rich.print("[green][bold]\tlogin to openai and fetch info...")
         for elm in pairs:
             ctx = browser.new_context()
             try:

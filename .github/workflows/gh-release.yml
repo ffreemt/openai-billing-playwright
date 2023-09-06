@@ -30,7 +30,8 @@ jobs:
           # echo ${{ env.RELEASE_TAG }}
       - name: "Use RELEASE_TAG"
         run: |
-          echo "The release tag is $RELEASE_TAG"
+          echo "The release tag is ${RELEASE_TAG}"
+          echo "The release tag is ${{  github.ref_name }}"
       - uses: actions/checkout@v3
       - uses: actions/setup-python@v4
         with:
@@ -89,6 +90,7 @@ jobs:
       - name: Zip the Build
         run: tar acf openai-billing-${{  github.ref_name }}.zip ./openai-billing.dist
 
+      # https://github.com/ffreemt/openai-billing-playwright/settings/actions workflow perssions: write and read
       - name: Publish Release
         run: |
           # gh release upload --clobber ${{ steps.version.outputs.TAG_NAME }} dist/*.tar.gz dist/*.whl
